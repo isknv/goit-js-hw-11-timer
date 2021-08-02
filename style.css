@@ -1,0 +1,14 @@
+* {
+  background-color: rgb(49, 97, 124);
+}
+
+.timer {
+  display: flex;
+  justify-content: center;
+  margin-top: 150px;
+}
+
+.timer .field {
+  font-size: 30px;
+  margin-left: 30px;
+}
