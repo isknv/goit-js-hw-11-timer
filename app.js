@@ -1,3 +1,6 @@
+// таймер может в минуса заходить - надо очищать интервал, когда достигнет нуля
+let setInt = null;
+
 class CountdownTimer {
   constructor({ selector, targetDate }) {
     this.trgtDate = targetDate;
@@ -10,7 +13,7 @@ class CountdownTimer {
   }
 
   startTime() {
-    setInterval(() => {
+    setInt = setInterval(() => {
       this.dateTime();
     }, 1000);
   }
@@ -27,13 +30,14 @@ class CountdownTimer {
   }
 
   getTimerComponents(time) {
+    if (time > 0) clearTimeout(setInt);
+
     const days = this.pad(Math.floor(time / (1000 * 60 * 60 * 24)));
     const hours = this.pad(
       Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
     );
     const mins = this.pad(Math.floor((time % (1000 * 60 * 60)) / (1000 * 60)));
     const secs = this.pad(Math.floor((time % (1000 * 60)) / 1000));
-
     return { days, hours, mins, secs };
   }
 
@@ -45,7 +49,7 @@ class CountdownTimer {
   }
 }
 
-new CountdownTimer({
+const timer = new CountdownTimer({
   selector: '#timer-1',
   targetDate: new Date('Jul 17, 2019'),
 });
